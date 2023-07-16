@@ -9,6 +9,14 @@ ThemeData preferredThemeData() {
 
     fontFamily: 'Inter',
     textTheme: const TextTheme(
+      titleLarge: TextStyle(
+        fontSize: 24.0,
+        color: Colors.white,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 16.0,
+        color: Colors.white,
+      ),
       bodyLarge: TextStyle(
         fontSize: 20.0,
         color: Colors.black,
