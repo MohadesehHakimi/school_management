@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 ThemeData preferredThemeData() {
   return ThemeData(
     colorScheme: ColorScheme.fromSwatch().copyWith(
-      primary: Colors.blue,
-      secondary: Colors.blueAccent,
+      primary: const Color.fromARGB(255, 21, 113, 236),
+      secondary: const Color.fromARGB(255, 29, 150, 241),
     ),
 
-    fontFamily: 'Georgia',
+    fontFamily: 'Inter',
     textTheme: const TextTheme(
       bodyLarge: TextStyle(
         fontSize: 20.0,
