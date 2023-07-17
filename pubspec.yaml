@@ -31,6 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: '>= 4.7.0'
+  table_calendar: ^3.0.9
+  intl: ^0.18.1
 
 dependency_overrides:
   font_awesome_flutter:
