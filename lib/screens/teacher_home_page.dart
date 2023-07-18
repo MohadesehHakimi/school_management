@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
 
+import '../widgets/display_info_appbar.dart';
 import '../widgets/bottom_navigation_bar.dart';
-
-DateTime mostRecentMonday(DateTime date) =>
-    DateTime(date.year, date.month, date.day - (date.weekday - 1));
 
 class TeacherHomePage extends StatelessWidget {
   const TeacherHomePage({super.key});
@@ -16,184 +12,173 @@ class TeacherHomePage extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.4),
-        child: Container(
-          padding: const EdgeInsets.only(
-              top: 50.0,
-              left: 20.0,
-              right: 20.0,
-              bottom: 20.0,
-          ),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.secondary,
-                Theme.of(context).colorScheme.primary,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+        child: const DisplayInfoAppBar(),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const FaIcon(FontAwesomeIcons.calendarCheck),
+                            color: Colors.green,
+                            iconSize: 40.0,
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            'Attendance',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const FaIcon(FontAwesomeIcons.bookBookmark),
+                            color: Colors.orange,
+                            iconSize: 40.0,
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            'Homeworks',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const FaIcon(FontAwesomeIcons.userCheck),
+                            color: Colors.purple,
+                            iconSize: 40.0,
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            'Behavior',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 30.0,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const FaIcon(FontAwesomeIcons.calendarDay),
+                            color: Colors.orange,
+                            iconSize: 40.0,
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            'Daily Tests',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const FaIcon(FontAwesomeIcons.users),
+                            color: Colors.blue,
+                            iconSize: 40.0,
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            'Activity',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const FaIcon(FontAwesomeIcons.clockRotateLeft),
+                            color: Colors.green,
+                            iconSize: 40.0,
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            'Circulars',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 30.0,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const FaIcon(FontAwesomeIcons.clipboardList),
+                            color: Colors.blue,
+                            iconSize: 40.0,
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            'Time Table',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const FaIcon(FontAwesomeIcons.message),
+                            color: Colors.purple,
+                            iconSize: 40.0,
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            'Messages',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const FaIcon(FontAwesomeIcons.ellipsis),
+                            color: Colors.blue,
+                            iconSize: 40.0,
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            'More',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             )
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        'Ernest Hemingway',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 5.0,),
-                      Text(
-                        'ID: 12345 | Teacher',
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            fontWeight: FontWeight.w400
-                        ),
-                      )
-                    ],
-                  ),
-                  // const SizedBox(width: 60.0,),
-                  Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const FaIcon(FontAwesomeIcons.bell),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                      const SizedBox(width: 10.0,),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const FaIcon(FontAwesomeIcons.bars),
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const Divider(
-                color: Colors.white60,
-                thickness: 1.0,
-                indent: 10.0,
-                endIndent: 10.0,
-                height: 50.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Select Date',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'June 2022',
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            fontWeight: FontWeight.w400
-                        ),
-                      ),
-                      const SizedBox(width: 5.0,),
-                      const FaIcon(
-                        FontAwesomeIcons.calendarDays,
-                        color: Colors.white,
-                        size: 16.0,
-                      ),
-                      const SizedBox(width: 5.0,),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30.0,),
-              Expanded(
-                child: TableCalendar(
-                  shouldFillViewport: true,
-                  headerVisible: false,
-                  daysOfWeekVisible: false,
-                  calendarFormat: CalendarFormat.week,
-                  startingDayOfWeek: StartingDayOfWeek.monday,
-                  focusedDay: DateTime.now(),
-                  // display this week, from Mon to Sun
-                  firstDay: mostRecentMonday(DateTime.now()),
-                  lastDay: mostRecentMonday(DateTime.now()).add(
-                      const Duration(days: 7)),
-                  calendarBuilders: CalendarBuilders(
-                    defaultBuilder: (context, date, _) {
-                      return Container(
-                        padding: const EdgeInsets.symmetric(vertical: 7.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              DateFormat('EEE').format(date),
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            const SizedBox(height: 5.0,),
-                            Text(
-                              date.day.toString(),
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    todayBuilder: (context, date, _) {
-                      return Container(
-                        padding: const EdgeInsets.symmetric(vertical: 7.0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              DateFormat('EEE').format(date),
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            const SizedBox(height: 5.0,),
-                            Text(
-                              date.day.toString(),
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    // disabledBuilder: (context, date, _) {
-                    //   return const SizedBox.shrink();
-                    // },
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30.0,),
-              const Divider(
-                color: Colors.white60,
-                thickness: 1.0,
-                indent: 10.0,
-                endIndent: 10.0,
-                height: 10.0,
-              ),
-              const SizedBox(height: 20.0,),
-            ],
-          ),
+          ],
         ),
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
