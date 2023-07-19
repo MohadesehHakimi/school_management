@@ -111,7 +111,8 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
             ],
           ),
           const SizedBox(height: 30.0,),
-          Expanded(
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.13,
             child: TableCalendar(
               shouldFillViewport: true,
               headerVisible: false,
