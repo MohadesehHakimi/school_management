@@ -16,7 +16,7 @@ class TeacherHomePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
-        physics: const AlwaysScrollableScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             Container(
@@ -26,50 +26,23 @@ class TeacherHomePage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(FontAwesomeIcons.calendarCheck),
-                            color: Colors.green,
-                            iconSize: 40.0,
-                          ),
-                          const SizedBox(height: 5.0,),
-                          Text(
-                            'Attendance',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          )
-                        ],
+                      buildIconAndLabelColumn(
+                          context,
+                          FontAwesomeIcons.calendarCheck,
+                          'Attendance',
+                          Colors.green
                       ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(FontAwesomeIcons.bookBookmark),
-                            color: Colors.orange,
-                            iconSize: 40.0,
-                          ),
-                          const SizedBox(height: 5.0,),
-                          Text(
-                            'Homeworks',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          )
-                        ],
+                      buildIconAndLabelColumn(
+                          context,
+                          FontAwesomeIcons.bookBookmark,
+                          'Homeworks',
+                          Colors.orange
                       ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(FontAwesomeIcons.userCheck),
-                            color: Colors.purple,
-                            iconSize: 40.0,
-                          ),
-                          const SizedBox(height: 5.0,),
-                          Text(
-                            'Behavior',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          )
-                        ],
+                      buildIconAndLabelColumn(
+                          context,
+                          FontAwesomeIcons.userCheck,
+                          'Behavior',
+                          Colors.purple
                       ),
                     ],
                   ),
@@ -77,50 +50,23 @@ class TeacherHomePage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(FontAwesomeIcons.calendarDay),
-                            color: Colors.orange,
-                            iconSize: 40.0,
-                          ),
-                          const SizedBox(height: 5.0,),
-                          Text(
-                            'Daily Tests',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          )
-                        ],
+                      buildIconAndLabelColumn(
+                        context,
+                        FontAwesomeIcons.calendarDay,
+                        'Daily Tests',
+                        Colors.orange,
                       ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(FontAwesomeIcons.users),
-                            color: Colors.blue,
-                            iconSize: 40.0,
-                          ),
-                          const SizedBox(height: 5.0,),
-                          Text(
-                            'Activity',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          )
-                        ],
+                      buildIconAndLabelColumn(
+                        context,
+                        FontAwesomeIcons.users,
+                        'Activity',
+                        Colors.blue,
                       ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(FontAwesomeIcons.clockRotateLeft),
-                            color: Colors.green,
-                            iconSize: 40.0,
-                          ),
-                          const SizedBox(height: 5.0,),
-                          Text(
-                            'Circulars',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          )
-                        ],
+                      buildIconAndLabelColumn(
+                        context,
+                        FontAwesomeIcons.clockRotateLeft,
+                        'Circulars',
+                        Colors.green,
                       ),
                     ],
                   ),
@@ -128,52 +74,32 @@ class TeacherHomePage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(FontAwesomeIcons.clipboardList),
-                            color: Colors.blue,
-                            iconSize: 40.0,
-                          ),
-                          const SizedBox(height: 5.0,),
-                          Text(
-                            'Time Table',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          )
-                        ],
+                      buildIconAndLabelColumn(
+                        context,
+                        FontAwesomeIcons.clipboardList,
+                        'Time Table',
+                        Colors.blue,
                       ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(FontAwesomeIcons.message),
-                            color: Colors.purple,
-                            iconSize: 40.0,
-                          ),
-                          const SizedBox(height: 5.0,),
-                          Text(
-                            'Messages',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          )
-                        ],
+                      buildIconAndLabelColumn(
+                        context,
+                        FontAwesomeIcons.message,
+                        'Messages',
+                        Colors.purple,
                       ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(FontAwesomeIcons.ellipsis),
-                            color: Colors.blue,
-                            iconSize: 40.0,
-                          ),
-                          const SizedBox(height: 5.0,),
-                          Text(
-                            'More',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          )
-                        ],
+                      buildIconAndLabelColumn(
+                        context,
+                        FontAwesomeIcons.ellipsis,
+                        'More',
+                        Colors.blue,
                       ),
                     ],
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 1.0,
+                    indent: 10.0,
+                    endIndent: 10.0,
+                    height: 50.0,
                   ),
                 ],
               ),
@@ -184,4 +110,26 @@ class TeacherHomePage extends StatelessWidget {
       bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
+}
+
+Column buildIconAndLabelColumn(
+    BuildContext context,
+    IconData icon,
+    String label,
+    Color color) {
+  return Column(
+    children: [
+      IconButton(
+        onPressed: () {},
+        icon: FaIcon(icon),
+        color: color,
+        iconSize: 40.0,
+      ),
+      const SizedBox(height: 5.0,),
+      Text(
+        label,
+        style: Theme.of(context).textTheme.bodyMedium,
+      )
+    ],
+  );
 }
