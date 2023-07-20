@@ -4,6 +4,7 @@ import '../widgets/display_info_appbar.dart';
 import '../widgets/home_page_options.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../models/class.dart';
+import '../models/event.dart';
 
 class TeacherHomePage extends StatefulWidget {
   const TeacherHomePage({super.key});
@@ -61,14 +62,13 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
               padding: const EdgeInsets.only(
                 left: 20.0,
                 right: 20.0,
-                bottom: 20.0,
               ),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     TabBar(
-                      padding: const EdgeInsets.only(top: 15.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       indicator: UnderlineTabIndicator(
                         borderRadius: BorderRadius.circular(10.0),
                         borderSide: BorderSide(
@@ -169,7 +169,63 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
                             padding: const EdgeInsets.all(20.0),
                             child: buildOptionsTable(context),
                           ),
-                          const Text('Events')
+                          // Events
+                          Container(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Events on July 20, 2023',
+                                      style: Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  ],
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: sampleEvents.length,
+                                  itemBuilder: (context, index) {
+                                    return Card(
+                                      elevation: 5.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      child: ListTile(
+                                        leading: CircleAvatar(
+                                          radius: 25.0,
+                                          backgroundColor: Colors.grey,
+                                          child: Text(
+                                            sampleEvents[index].title[0],
+                                            style: Theme.of(context).textTheme.bodyMedium,
+                                          ),
+                                        ),
+                                        title: Text(
+                                          sampleEvents[index].title,
+                                          style: Theme.of(context).textTheme.bodyMedium,
+                                        ),
+                                        subtitle: Text(
+                                          "${sampleEvents[index].grade}th Grade "
+                                              "${sampleEvents[index].section} Section",
+                                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                            color: Colors.grey,
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                        trailing: Text(
+                                          "${sampleEvents[index].time.hour}:"
+                                              "${sampleEvents[index].time.minute}",
+                                          style: Theme.of(context).textTheme.bodyMedium,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
                         ]
                       ),
                     )
