@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../widgets/display_info_appbar.dart';
+import '../widgets/home_page_options.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../models/class.dart';
 
@@ -91,81 +91,12 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
                       child: TabBarView(
                         controller: _tabController,
                         children: [
+                          // Updates
                           Container(
                             padding: const EdgeInsets.all(20.0),
                             child: Column(
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    _buildIconAndLabelColumn(
-                                      context,
-                                      FontAwesomeIcons.calendarCheck,
-                                      'Attendance',
-                                      Colors.green
-                                    ),
-                                    _buildIconAndLabelColumn(
-                                      context,
-                                      FontAwesomeIcons.bookBookmark,
-                                      'Homeworks',
-                                      Colors.orange
-                                    ),
-                                    _buildIconAndLabelColumn(
-                                      context,
-                                      FontAwesomeIcons.userCheck,
-                                      'Behavior',
-                                      Colors.purple
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20.0,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    _buildIconAndLabelColumn(
-                                      context,
-                                      FontAwesomeIcons.calendarDay,
-                                      'Daily Tests',
-                                      Colors.orange,
-                                    ),
-                                    _buildIconAndLabelColumn(
-                                      context,
-                                      FontAwesomeIcons.users,
-                                      'Activity',
-                                      Colors.blue,
-                                    ),
-                                    _buildIconAndLabelColumn(
-                                      context,
-                                      FontAwesomeIcons.clockRotateLeft,
-                                      'Circulars',
-                                      Colors.green,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20.0,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    _buildIconAndLabelColumn(
-                                      context,
-                                      FontAwesomeIcons.clipboardList,
-                                      'Time Table',
-                                      Colors.blue,
-                                    ),
-                                    _buildIconAndLabelColumn(
-                                      context,
-                                      FontAwesomeIcons.message,
-                                      'Messages',
-                                      Colors.purple,
-                                    ),
-                                    _buildIconAndLabelColumn(
-                                      context,
-                                      FontAwesomeIcons.ellipsis,
-                                      'More',
-                                      Colors.blue,
-                                    ),
-                                  ],
-                                ),
+                                buildOptionsTable(context),
                                 const Divider(
                                   color: Colors.grey,
                                   thickness: 1.0,
@@ -233,7 +164,11 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
                               ],
                             ),
                           ),
-                          const Text('Monthly'),
+                          // Monthly
+                          Container(
+                            padding: const EdgeInsets.all(20.0),
+                            child: buildOptionsTable(context),
+                          ),
                           const Text('Events')
                         ]
                       ),
@@ -248,26 +183,4 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
       bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
-}
-
-Column _buildIconAndLabelColumn(
-    BuildContext context,
-    IconData icon,
-    String label,
-    Color color) {
-  return Column(
-    children: [
-      IconButton(
-        onPressed: () {},
-        icon: FaIcon(icon),
-        color: color,
-        iconSize: 40.0,
-      ),
-      const SizedBox(height: 5.0,),
-      Text(
-        label,
-        style: Theme.of(context).textTheme.bodyMedium,
-      )
-    ],
-  );
 }
