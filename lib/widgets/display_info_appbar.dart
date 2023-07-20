@@ -14,6 +14,9 @@ class DisplayInfoAppBar extends StatefulWidget {
 }
 
 class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
+  // DateTime _focusedDay = DateTime.now();
+  // DateTime? _selectedDay;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -124,6 +127,20 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
               firstDay: mostRecentMonday(DateTime.now()),
               lastDay: mostRecentMonday(DateTime.now()).add(
                   const Duration(days: 6)),
+              // selectedDayPredicate: (day) {
+              //   return isSameDay(_selectedDay, day);
+              // },
+              // onDaySelected: (selectedDay, focusedDay) {
+              //   if (!isSameDay(_selectedDay, _selectedDay)) {
+              //     setState(() {
+              //       _selectedDay = selectedDay;
+              //       _focusedDay = focusedDay;
+              //     });
+              //   }
+              // },
+              // onPageChanged: (focusedDay) {
+              //   _focusedDay = focusedDay;
+              // },
               calendarBuilders: CalendarBuilders(
                 defaultBuilder: (context, date, _) {
                   return Container(
@@ -184,13 +201,13 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
               ),
             ),
           ),
-          const SizedBox(height: 30.0,),
+          const SizedBox(height: 10.0,),
           const Divider(
             color: Colors.white60,
             thickness: 1.0,
             indent: 10.0,
             endIndent: 10.0,
-            height: 10.0,
+            height: 1.0,
           ),
           const SizedBox(height: 20.0,),
         ],
