@@ -14,8 +14,8 @@ class DisplayInfoAppBar extends StatefulWidget {
 }
 
 class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
-  // DateTime _focusedDay = DateTime.now();
-  // DateTime? _selectedDay;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
 
   @override
   Widget build(BuildContext context) {
@@ -122,25 +122,25 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
               daysOfWeekVisible: false,
               calendarFormat: CalendarFormat.week,
               startingDayOfWeek: StartingDayOfWeek.monday,
-              focusedDay: DateTime.now(),
+              focusedDay: _focusedDay,
               // display this week, from Mon to Sun
               firstDay: mostRecentMonday(DateTime.now()),
               lastDay: mostRecentMonday(DateTime.now()).add(
                   const Duration(days: 6)),
-              // selectedDayPredicate: (day) {
-              //   return isSameDay(_selectedDay, day);
-              // },
-              // onDaySelected: (selectedDay, focusedDay) {
-              //   if (!isSameDay(_selectedDay, _selectedDay)) {
-              //     setState(() {
-              //       _selectedDay = selectedDay;
-              //       _focusedDay = focusedDay;
-              //     });
-              //   }
-              // },
-              // onPageChanged: (focusedDay) {
-              //   _focusedDay = focusedDay;
-              // },
+              selectedDayPredicate: (day) {
+                return isSameDay(_selectedDay, day);
+              },
+              onDaySelected: (selectedDay, focusedDay) {
+                if (!isSameDay(_selectedDay, selectedDay)) {
+                  setState(() {
+                    _selectedDay = selectedDay;
+                    _focusedDay = selectedDay;
+                  });
+                }
+              },
+              onPageChanged: (focusedDay) {
+                _focusedDay = focusedDay;
+              },
               calendarBuilders: CalendarBuilders(
                 defaultBuilder: (context, date, _) {
                   return Container(
@@ -166,6 +166,64 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
                   );
                 },
                 todayBuilder: (context, date, _) {
+                  // if today is selected or no date is selected
+                  if (isSameDay(date, _selectedDay) || _selectedDay == null) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(vertical: 7.0),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            DateFormat('EEE').format(date),
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            date.day.toString(),
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(vertical: 7.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            DateFormat('EEE').format(date),
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Text(
+                            date.day.toString(),
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
+                disabledBuilder: (context, date, _) {
+                  return const SizedBox.shrink();
+                },
+                selectedBuilder: (context, date, _) {
                   return Container(
                     padding: const EdgeInsets.symmetric(vertical: 7.0),
                     alignment: Alignment.center,
@@ -194,9 +252,6 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
                       ],
                     ),
                   );
-                },
-                disabledBuilder: (context, date, _) {
-                  return const SizedBox.shrink();
                 },
               ),
             ),
