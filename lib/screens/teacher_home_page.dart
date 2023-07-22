@@ -123,6 +123,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
                                     ]
                                   ),
                                   ListView.builder(
+                                    physics: const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
                                     itemCount: sampleClasses.length,
@@ -185,6 +186,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
                                     ],
                                   ),
                                   ListView.builder(
+                                    physics: const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
                                     itemCount: sampleEvents.length,
