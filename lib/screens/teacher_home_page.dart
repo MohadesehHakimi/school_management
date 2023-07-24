@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/display_info_appbar.dart';
 import '../widgets/home_page_options.dart';
 import '../widgets/bottom_navigation_bar.dart';
+import '../widgets/search_bar.dart';
 import '../models/class.dart';
 import '../models/event.dart';
 
@@ -243,39 +244,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
               left: 0.0,
               right: 0.0,
               height: 60.0,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                child: Theme(
-                  data: ThemeData(
-                    inputDecorationTheme: const InputDecorationTheme(
-                      fillColor: Colors.white,
-                    )
-                  ),
-                  child: Material(  // use material widget to add elevation
-                    elevation: 3.0,
-                    borderRadius: BorderRadius.circular(25.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search',
-                        hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.grey,
-                        ),
-                        filled: true,
-                        disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        prefixIcon: const Icon(Icons.search),
-                        prefixIconColor: Colors.grey,
-                      ),
-                    ),
-                  ),
-                ),
-              )
+              child: const CustomSearchBar(),
             ),
           ]
         ),
