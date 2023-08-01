@@ -7,14 +7,14 @@ import '../widgets/bottom_navigation_bar.dart';
 List<String> students = ['John Doe', 'Jane Doe', 'John Smith', 'Jane Smith',
                             'John Doe', 'Jane Doe', 'John Smith', 'Jane Smith'];
 
-class AttendancePage extends StatefulWidget {
-  const AttendancePage({super.key});
+class AttendanceTeacherPage extends StatefulWidget {
+  const AttendanceTeacherPage({super.key});
 
   @override
-  State<AttendancePage> createState() => _AttendancePageState();
+  State<AttendanceTeacherPage> createState() => _AttendanceTeacherPageState();
 }
 
-class _AttendancePageState extends State<AttendancePage> {
+class _AttendanceTeacherPageState extends State<AttendanceTeacherPage> {
   String _dropDownValue = 'Class 1';
 
   @override
