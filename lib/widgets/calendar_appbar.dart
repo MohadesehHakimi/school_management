@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:school_management/screens/teacher_home_page.dart';
-import 'package:school_management/widgets/appbar_calendar.dart';
+import 'package:school_management/widgets/custom_appbar_calendar.dart';
 
 
 class CalendarAppBar extends StatefulWidget {
@@ -80,7 +80,7 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
           const SizedBox(height: 15.0,),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.13,
-            child: const AppBarCalendar(),
+            child: const CustomAppBarCalendar(),
           ),
           const SizedBox(height: 10.0,),
           const Divider(

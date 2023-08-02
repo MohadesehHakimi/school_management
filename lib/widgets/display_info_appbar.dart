@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../widgets/appbar_calendar.dart';
+import '../widgets/custom_appbar_calendar.dart';
 
 class DisplayInfoAppBar extends StatefulWidget {
   const DisplayInfoAppBar({super.key});
@@ -111,7 +111,7 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
           const SizedBox(height: 30.0,),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.13,
-            child: const AppBarCalendar(),
+            child: const CustomAppBarCalendar(),
           ),
           const SizedBox(height: 10.0,),
           const Divider(

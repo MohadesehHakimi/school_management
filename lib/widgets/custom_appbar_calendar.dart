@@ -5,14 +5,14 @@ import 'package:intl/intl.dart';
 DateTime mostRecentMonday(DateTime date) =>
     DateTime(date.year, date.month, date.day - (date.weekday - 1));
 
-class AppBarCalendar extends StatefulWidget {
-  const AppBarCalendar({super.key});
+class CustomAppBarCalendar extends StatefulWidget {
+  const CustomAppBarCalendar({super.key});
 
   @override
-  State<AppBarCalendar> createState() => _AppBarCalendarState();
+  State<CustomAppBarCalendar> createState() => _CustomAppBarCalendarState();
 }
 
-class _AppBarCalendarState extends State<AppBarCalendar> {
+class _CustomAppBarCalendarState extends State<CustomAppBarCalendar> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
