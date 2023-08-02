@@ -27,13 +27,13 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
         bottom: 20.0,
       ),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: RadialGradient(
           colors: [
             Theme.of(context).colorScheme.secondary,
             Theme.of(context).colorScheme.primary,
           ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          center: Alignment.topLeft,
+          radius: 1.0,
         )
       ),
       child: Column(
