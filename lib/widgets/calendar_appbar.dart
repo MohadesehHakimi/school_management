@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:school_management/screens/teacher_home_page.dart';
 import 'package:school_management/widgets/appbar_calendar.dart';
 
 
@@ -40,7 +42,9 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) {
+                        return const TeacherHomePage();
+                      }));
                     },
                     icon: const FaIcon(
                       FontAwesomeIcons.arrowLeft,

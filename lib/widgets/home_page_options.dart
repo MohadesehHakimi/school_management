@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../screens/attendance_teacher_page.dart';
+
 Column buildOptionsTable(BuildContext context) {
   return Column(
     children: [
@@ -8,22 +10,29 @@ Column buildOptionsTable(BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildIconAndLabelColumn(
-              context,
-              FontAwesomeIcons.calendarCheck,
-              'Attendance',
-              Colors.green
+            context,
+            FontAwesomeIcons.calendarCheck,
+            'Attendance',
+            Colors.green,
+            () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) {
+                return const AttendanceTeacherPage();
+              }));
+            },
           ),
           _buildIconAndLabelColumn(
-              context,
-              FontAwesomeIcons.bookBookmark,
-              'Homeworks',
-              Colors.orange
+            context,
+            FontAwesomeIcons.bookBookmark,
+            'Homeworks',
+            Colors.orange,
+              () {},
           ),
           _buildIconAndLabelColumn(
-              context,
-              FontAwesomeIcons.userCheck,
-              'Behavior',
-              Colors.purple
+            context,
+            FontAwesomeIcons.userCheck,
+            'Behavior',
+            Colors.purple,
+              () {},
           ),
         ],
       ),
@@ -36,18 +45,21 @@ Column buildOptionsTable(BuildContext context) {
             FontAwesomeIcons.calendarDay,
             'Daily Tests',
             Colors.orange,
+              () {},
           ),
           _buildIconAndLabelColumn(
             context,
             FontAwesomeIcons.users,
             'Activity',
             Colors.blue,
+              () {},
           ),
           _buildIconAndLabelColumn(
             context,
             FontAwesomeIcons.clockRotateLeft,
             'Circulars',
             Colors.green,
+              () {},
           ),
         ],
       ),
@@ -60,18 +72,21 @@ Column buildOptionsTable(BuildContext context) {
             FontAwesomeIcons.clipboardList,
             'Time Table',
             Colors.blue,
+              () {},
           ),
           _buildIconAndLabelColumn(
             context,
             FontAwesomeIcons.message,
             'Messages',
             Colors.purple,
+              () {},
           ),
           _buildIconAndLabelColumn(
             context,
             FontAwesomeIcons.ellipsis,
             'More',
             Colors.blue,
+              () {},
           ),
         ],
       ),
@@ -83,11 +98,13 @@ Column _buildIconAndLabelColumn(
     BuildContext context,
     IconData icon,
     String label,
-    Color color) {
+    Color color,
+    VoidCallback operation,
+    ) {
   return Column(
     children: [
       IconButton(
-        onPressed: () {},
+        onPressed: operation,
         icon: FaIcon(icon),
         color: color,
         iconSize: 40.0,

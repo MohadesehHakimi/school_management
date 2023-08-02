@@ -43,6 +43,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
         body: Stack(
           fit: StackFit.expand,
           children: [
+            // AppBar
             PreferredSize(
               preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.4),
               child: const DisplayInfoAppBar(),
