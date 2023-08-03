@@ -17,7 +17,7 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: 3,
+      length: 2,
       vsync: this,
     );
   }
@@ -73,6 +73,17 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                 left: 20.0,
                 right: 20.0,
               ),
+              child: TabBarView(
+                controller: _tabController,
+                children: const [
+                  Center(
+                    child: Text('Personal'),
+                  ),
+                  Center(
+                    child: Text('Stats'),
+                  ),
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -91,7 +102,7 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                     color: Colors.white,
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Column(
                         children: [
@@ -99,11 +110,32 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                             'John Doe',
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
-                          const SizedBox(height: 5.0,),
+                          const SizedBox(height: 5.0),
                           Text(
-                            'ID: 12345',
+                            'Teacher  |  ID: 12345',
                             style: Theme.of(context).textTheme.bodyMedium,
-                          )
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10.0),
+                      TabBar(
+                        controller: _tabController,
+                        splashFactory: NoSplash.splashFactory,
+                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                        indicatorColor: Colors.transparent,
+                        labelColor: Theme.of(context).colorScheme.primary,
+                        labelStyle: const TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        unselectedLabelColor: Theme.of(context).colorScheme.secondary,
+                        tabs: const [
+                          Tab(
+                            text: 'Personal',
+                          ),
+                          Tab(
+                            text: 'Stats',
+                          ),
                         ],
                       ),
                     ],
