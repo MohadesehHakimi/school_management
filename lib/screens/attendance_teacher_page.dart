@@ -230,7 +230,7 @@ class _AttendanceTeacherPageState extends State<AttendanceTeacherPage> {
             ),
           ]
         ),
-        bottomNavigationBar: const CustomBottomNavigationBar(),
+        bottomNavigationBar: CustomBottomNavigationBar(),
       ),
     );
   }
