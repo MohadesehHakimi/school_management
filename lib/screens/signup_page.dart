@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+
+  bool _isPasswordVisible = false;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +25,10 @@ class SignUpPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 50.0,
+              vertical: 15.0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -19,6 +37,7 @@ class SignUpPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 TextFormField(
+                  keyboardType: TextInputType.phone,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                   ),
@@ -27,7 +46,10 @@ class SignUpPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 50.0,
+              vertical: 15.0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -36,6 +58,20 @@ class SignUpPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 TextFormField(
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  obscureText: !_isPasswordVisible,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: FaIcon(
+                        _isPasswordVisible
+                            ? FontAwesomeIcons.eyeSlash
+                            : FontAwesomeIcons.eye,
+                      ),
+                      onPressed: _togglePasswordVisibility,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -74,7 +110,7 @@ class SignUpPage extends StatelessWidget {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.1,)
         ],
-      )
+      ),
     );
   }
 }
