@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({super.key});
+  const CustomBottomNavigationBar({super.key, required this.onTabChange});
+
+  final Function onTabChange;
 
   @override
   State<CustomBottomNavigationBar> createState() => _CustomBottomNavigationBarState();
@@ -14,6 +16,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      widget.onTabChange(index);
     });
   }
 
@@ -47,8 +50,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             ),
           ],
           currentIndex: _selectedIndex,
+          showUnselectedLabels: false,
           selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white.withOpacity(0.5),
+          unselectedItemColor: Colors.white,
           selectedFontSize: 16.0,
           unselectedFontSize: 14.0,
           backgroundColor: Theme.of(context).colorScheme.primary,
