@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'screens/login_page.dart';
 import 'theme_settings/theme_data.dart';
-import 'screens/teacher_home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'School Management',
       debugShowCheckedModeBanner: false,
       theme: preferredThemeData(),
-      home: const TeacherHomePage(),
+      home: const LoginPage(),
     );
   }
 }
