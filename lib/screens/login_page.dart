@@ -18,11 +18,19 @@ class _LoginPageState extends State<LoginPage> {
   bool _isPasswordVisible = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   void _togglePasswordVisibility() {
     setState(() {
       _isPasswordVisible = !_isPasswordVisible;
     });
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -32,159 +40,176 @@ class _LoginPageState extends State<LoginPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 50.0,
-                vertical: 10.0,
-              ),
-              child: TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  prefixIcon: FaIcon(
-                    FontAwesomeIcons.envelope,
-                  ),
-                  prefixIconConstraints: BoxConstraints(
-                    minWidth: 50.0,
-                  ),
-                  label: Text(
-                    'Email',
-                  ),
+        body: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50.0,
+                  vertical: 10.0,
                 ),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                )
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 50.0,
-                vertical: 10.0,
-              ),
-              child: TextFormField(
-                controller: _passwordController,
-                obscureText: !_isPasswordVisible,
-                decoration: InputDecoration(
-                  prefixIcon: const FaIcon(
-                    FontAwesomeIcons.lock,
-                  ),
-                  prefixIconConstraints: const BoxConstraints(
-                    minWidth: 50.0,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: _togglePasswordVisibility,
-                    icon: FaIcon(
-                      _isPasswordVisible
-                          ? FontAwesomeIcons.eyeSlash
-                          : FontAwesomeIcons.eye,
+                child: TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    prefixIcon: FaIcon(
+                      FontAwesomeIcons.envelope,
+                    ),
+                    prefixIconConstraints: BoxConstraints(
+                      minWidth: 50.0,
+                    ),
+                    label: Text(
+                      'Email',
                     ),
                   ),
-                  label: const Text(
-                    'Password',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email.';
+                    }
+                    return null;
+                  },
                 ),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                )
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 50.0,
-                vertical: 10.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50.0,
+                  vertical: 10.0,
+                ),
+                child: TextFormField(
+                  controller: _passwordController,
+                  obscureText: !_isPasswordVisible,
+                  decoration: InputDecoration(
+                    prefixIcon: const FaIcon(
+                      FontAwesomeIcons.lock,
+                    ),
+                    prefixIconConstraints: const BoxConstraints(
+                      minWidth: 50.0,
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: _togglePasswordVisibility,
+                      icon: FaIcon(
+                        _isPasswordVisible
+                            ? FontAwesomeIcons.eyeSlash
+                            : FontAwesomeIcons.eye,
                       ),
                     ),
+                    label: const Text(
+                      'Password',
+                    ),
                   ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: TextButton(
-                onPressed: () async {
-                  final message = await AuthService().login(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                  );
-                  late final User user;
-                  FirebaseAuth.instance
-                      .authStateChanges()
-                      .listen((User? thisUser) {
-                    if (thisUser != null) {
-                      user = thisUser;
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password.';
                     }
-                  });
-                  if (mounted) {
-                    if (message!.contains('Success')) {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => TeacherMainPage(user: user),
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50.0,
+                  vertical: 10.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: TextButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      final message = await AuthService().login(
+                        email: _emailController.text,
+                        password: _passwordController.text,
                       );
+                      late final User user;
+                      FirebaseAuth.instance
+                          .authStateChanges()
+                          .listen((User? thisUser) {
+                        if (thisUser != null) {
+                          user = thisUser;
+                        }
+                      });
+                      if (mounted) {
+                        if (message!.contains('Success')) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => TeacherMainPage(user: user),
+                            ),
+                          );
+                        }
+                        String loginMessage = (
+                            message.contains('Success')
+                                ? 'You have successfully logged in!'
+                                : message
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(loginMessage),
+                          ),
+                        );
+                      }
                     }
-                    String loginMessage = (
-                      message.contains('Success')
-                        ? 'You have successfully logged in!'
-                        : message
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(loginMessage),
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    elevation: 5.0,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.3,
+                      vertical: 10.0,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: Text(
+                    'Login',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpPage(),
                       ),
                     );
-                  }
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  elevation: 5.0,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.3,
-                    vertical: 10.0,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                child: Text(
-                  'Login',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const SignUpPage(),
+                  },
+                  child: Text(
+                    'Don\'t have an account?',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      decoration: TextDecoration.underline,
                     ),
-                  );
-                },
-                child: Text(
-                  'Don\'t have an account?',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    decoration: TextDecoration.underline,
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.1,)
-          ],
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1,)
+            ],
+          ),
         )
       ),
     );

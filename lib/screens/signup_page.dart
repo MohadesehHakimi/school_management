@@ -19,11 +19,20 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _displayNameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   void _togglePasswordVisibility() {
     setState(() {
       _isPasswordVisible = !_isPasswordVisible;
     });
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _displayNameController.dispose();
+    super.dispose();
   }
 
   @override
@@ -33,161 +42,185 @@ class _SignUpPageState extends State<SignUpPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 50.0,
-                vertical: 10.0,
-              ),
-              child: TextFormField(
-                controller: _displayNameController,
-                keyboardType: TextInputType.name,
-                decoration: const InputDecoration(
-                  prefixIcon: FaIcon(
-                    FontAwesomeIcons.user,
-                  ),
-                  prefixIconConstraints: BoxConstraints(
-                    minWidth: 50.0,
-                  ),
-                  label: Text(
-                    'Full Name',
-                  ),
+        body: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50.0,
+                  vertical: 10.0,
                 ),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                )
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 50.0,
-                vertical: 10.0,
-              ),
-              child: TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  prefixIcon: FaIcon(
-                    FontAwesomeIcons.envelope,
-                  ),
-                  prefixIconConstraints: BoxConstraints(
-                    minWidth: 50.0,
-                  ),
-                  label: Text(
-                    'Email',
-                  ),
-                ),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                )
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 50.0,
-                vertical: 10.0,
-              ),
-              child: TextFormField(
-                controller: _passwordController,
-                obscureText: !_isPasswordVisible,
-                decoration: InputDecoration(
-                  prefixIcon: const FaIcon(
-                    FontAwesomeIcons.lock,
-                  ),
-                  prefixIconConstraints: const BoxConstraints(
-                    minWidth: 50.0,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: _togglePasswordVisibility,
-                    icon: FaIcon(
-                      _isPasswordVisible
-                        ? FontAwesomeIcons.eyeSlash
-                        : FontAwesomeIcons.eye,
+                child: TextFormField(
+                  controller: _displayNameController,
+                  keyboardType: TextInputType.name,
+                  decoration: const InputDecoration(
+                    prefixIcon: FaIcon(
+                      FontAwesomeIcons.user,
+                    ),
+                    prefixIconConstraints: BoxConstraints(
+                      minWidth: 50.0,
+                    ),
+                    label: Text(
+                      'Full Name',
                     ),
                   ),
-                  label: const Text(
-                    'Password',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your full name.';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50.0,
+                  vertical: 10.0,
+                ),
+                child: TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    prefixIcon: FaIcon(
+                      FontAwesomeIcons.envelope,
+                    ),
+                    prefixIconConstraints: BoxConstraints(
+                      minWidth: 50.0,
+                    ),
+                    label: Text(
+                      'Email',
+                    ),
+                  ),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email.';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50.0,
+                  vertical: 10.0,
+                ),
+                child: TextFormField(
+                  controller: _passwordController,
+                  obscureText: !_isPasswordVisible,
+                  decoration: InputDecoration(
+                    prefixIcon: const FaIcon(
+                      FontAwesomeIcons.lock,
+                    ),
+                    prefixIconConstraints: const BoxConstraints(
+                      minWidth: 50.0,
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: _togglePasswordVisibility,
+                      icon: FaIcon(
+                        _isPasswordVisible
+                          ? FontAwesomeIcons.eyeSlash
+                          : FontAwesomeIcons.eye,
+                      ),
+                    ),
+                    label: const Text(
+                      'Password',
+                    ),
+                  ),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password.';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: TextButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      final message = await AuthService().registration(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                        displayName: _displayNameController.text,
+                      );
+                      late final User user;
+                      FirebaseAuth.instance
+                          .authStateChanges()
+                          .listen((User? thisUser) {
+                        if (thisUser != null) {
+                          user = thisUser;
+                        }
+                      });
+                      if (mounted) {
+                        if (message!.contains('Success')) {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      TeacherMainPage(user: user)));
+                        }
+                        String signupMessage = (
+                            message.contains('Success')
+                                ? 'You have successfully signed up!'
+                                : message
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(signupMessage),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    elevation: 5.0,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.3,
+                      vertical: 10.0,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: Text(
+                    'Sign Up',
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                )
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: TextButton(
-                onPressed: () async {
-                  final message = await AuthService().registration(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    displayName: _displayNameController.text,
-                  );
-                  late final User user;
-                  FirebaseAuth.instance
-                      .authStateChanges()
-                      .listen((User? thisUser) {
-                    if (thisUser != null) {
-                      user = thisUser;
-                    }
-                  });
-                  if (mounted) {
-                    if (message!.contains('Success')) {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                              builder: (context) => TeacherMainPage(user: user)));
-                    }
-                    String signupMessage = (
-                      message.contains('Success')
-                        ? 'You have successfully signed up!'
-                        : message
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(signupMessage),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
                       ),
                     );
-                  }
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  elevation: 5.0,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.3,
-                    vertical: 10.0,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                child: Text(
-                  'Sign Up',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
+                  },
+                  child: Text(
+                    'Already have an account?',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      decoration: TextDecoration.underline,
                     ),
-                  );
-                },
-                child: Text(
-                  'Already have an account?',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    decoration: TextDecoration.underline,
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.1,)
-          ],
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1,)
+            ],
+          ),
         ),
       ),
     );
