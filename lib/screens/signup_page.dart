@@ -17,6 +17,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _isPasswordVisible = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _displayNameController = TextEditingController();
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -40,6 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 vertical: 10.0,
               ),
               child: TextFormField(
+                controller: _displayNameController,
                 keyboardType: TextInputType.name,
                 decoration: const InputDecoration(
                   prefixIcon: FaIcon(
@@ -120,6 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   final message = await AuthService().registration(
                     email: _emailController.text,
                     password: _passwordController.text,
+                    displayName: _displayNameController.text,
                   );
                   if (mounted) {
                     if (message!.contains('Success')) {
@@ -135,10 +138,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(signupMessage),
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
                       ),
                     );
                   }

@@ -4,18 +4,24 @@ class AuthService {
   Future<String?> registration({
     required String email,
     required String password,
+    required String displayName,
   }) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      if (FirebaseAuth.instance.currentUser != null) {
+        await FirebaseAuth.instance.currentUser!.updateDisplayName(displayName);
+      }
       return 'Success';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return 'The password provided is too weak.';
       } else if (e.code == 'email-already-in-use') {
         return 'The account already exists for that email.';
+      } else if (e.code == 'invalid-email') {
+        return 'The email address is not valid.';
       } else {
         return e.message;
       }

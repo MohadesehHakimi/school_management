@@ -128,17 +128,13 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     }
                     String loginMessage = (
-                        message.contains('Success')
+                      message.contains('Success')
                         ? 'You have successfully logged in!'
                         : message
                     );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(loginMessage),
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        )
                       ),
                     );
                   }
