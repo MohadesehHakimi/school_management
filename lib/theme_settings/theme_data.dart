@@ -7,6 +7,21 @@ ThemeData preferredThemeData() {
       secondary: const Color.fromARGB(255, 29, 150, 241),
     ),
 
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: Colors.white,
+      elevation: 10.0,
+      contentTextStyle: TextStyle(
+        fontSize: 18.0,
+        color: Color.fromARGB(255, 29, 150, 241),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.0),
+          topRight: Radius.circular(25.0),
+        ),
+      ),
+    ),
+
     fontFamily: 'Inter',
     textTheme: const TextTheme(
       titleLarge: TextStyle(
