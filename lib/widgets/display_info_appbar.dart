@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../widgets/custom_appbar_calendar.dart';
 
 class DisplayInfoAppBar extends StatefulWidget {
-  const DisplayInfoAppBar({super.key});
+  const DisplayInfoAppBar({super.key, required this.user});
+
+  final User? user;
 
   @override
   State<DisplayInfoAppBar> createState() => _DisplayInfoAppBarState();
@@ -39,7 +42,7 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
               Column(
                 children: [
                   Text(
-                    'Ernest Hemingway',
+                    widget.user!.displayName ?? 'Ernest Hemingway',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 5.0,),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:school_management/cloud_functions/auth_service.dart';
@@ -124,11 +125,19 @@ class _SignUpPageState extends State<SignUpPage> {
                     password: _passwordController.text,
                     displayName: _displayNameController.text,
                   );
+                  late final User user;
+                  FirebaseAuth.instance
+                      .authStateChanges()
+                      .listen((User? thisUser) {
+                    if (thisUser != null) {
+                      user = thisUser;
+                    }
+                  });
                   if (mounted) {
                     if (message!.contains('Success')) {
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                              builder: (context) => const TeacherMainPage()));
+                              builder: (context) => TeacherMainPage(user: user)));
                     }
                     String signupMessage = (
                       message.contains('Success')

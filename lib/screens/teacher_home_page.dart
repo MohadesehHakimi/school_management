@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../widgets/display_info_appbar.dart';
 import '../widgets/home_page_options.dart';
@@ -7,7 +8,9 @@ import '../models/class.dart';
 import '../models/event.dart';
 
 class TeacherHomePage extends StatefulWidget {
-  const TeacherHomePage({super.key});
+  const TeacherHomePage({super.key, required this.user});
+
+  final User? user;
 
   @override
   State<TeacherHomePage> createState() => _TeacherHomePageState();
@@ -44,7 +47,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
           // AppBar
           PreferredSize(
             preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.4),
-            child: const DisplayInfoAppBar(),
+            child: DisplayInfoAppBar(user: widget.user,),
           ),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.45,
