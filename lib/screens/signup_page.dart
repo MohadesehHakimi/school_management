@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../screens/login_page.dart';
+import 'package:school_management/cloud_functions/auth_service.dart';
 import '../screens/teacher_main.dart';
+import '../screens/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -14,6 +15,8 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
 
   bool _isPasswordVisible = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -60,6 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 vertical: 10.0,
               ),
               child: TextFormField(
+                controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   prefixIcon: FaIcon(
@@ -83,6 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 vertical: 10.0,
               ),
               child: TextFormField(
+                controller: _passwordController,
                 obscureText: !_isPasswordVisible,
                 decoration: InputDecoration(
                   prefixIcon: const FaIcon(
@@ -111,12 +116,32 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const TeacherMainPage(),
-                    ),
+                onPressed: () async {
+                  final message = await AuthService().registration(
+                    email: _emailController.text,
+                    password: _passwordController.text,
                   );
+                  if (mounted) {
+                    if (message!.contains('Success')) {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (context) => const TeacherMainPage()));
+                    }
+                    String signupMessage = (
+                      message.contains('Success')
+                        ? 'You have successfully signed up!'
+                        : message
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(signupMessage),
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                      ),
+                    );
+                  }
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:school_management/cloud_functions/auth_service.dart';
 import '../screens/signup_page.dart';
 import '../screens/teacher_main.dart';
 
@@ -14,6 +15,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   bool _isPasswordVisible = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -37,21 +40,22 @@ class _LoginPageState extends State<LoginPage> {
                 vertical: 10.0,
               ),
               child: TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    prefixIcon: FaIcon(
-                      FontAwesomeIcons.envelope,
-                    ),
-                    prefixIconConstraints: BoxConstraints(
-                      minWidth: 50.0,
-                    ),
-                    label: Text(
-                      'Email',
-                    ),
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  prefixIcon: FaIcon(
+                    FontAwesomeIcons.envelope,
                   ),
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                  )
+                  prefixIconConstraints: BoxConstraints(
+                    minWidth: 50.0,
+                  ),
+                  label: Text(
+                    'Email',
+                  ),
+                ),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                )
               ),
             ),
             Padding(
@@ -60,29 +64,30 @@ class _LoginPageState extends State<LoginPage> {
                 vertical: 10.0,
               ),
               child: TextFormField(
-                  obscureText: !_isPasswordVisible,
-                  decoration: InputDecoration(
-                    prefixIcon: const FaIcon(
-                      FontAwesomeIcons.lock,
-                    ),
-                    prefixIconConstraints: const BoxConstraints(
-                      minWidth: 50.0,
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: _togglePasswordVisibility,
-                      icon: FaIcon(
-                        _isPasswordVisible
-                            ? FontAwesomeIcons.eyeSlash
-                            : FontAwesomeIcons.eye,
-                      ),
-                    ),
-                    label: const Text(
-                      'Password',
+                controller: _passwordController,
+                obscureText: !_isPasswordVisible,
+                decoration: InputDecoration(
+                  prefixIcon: const FaIcon(
+                    FontAwesomeIcons.lock,
+                  ),
+                  prefixIconConstraints: const BoxConstraints(
+                    minWidth: 50.0,
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: _togglePasswordVisibility,
+                    icon: FaIcon(
+                      _isPasswordVisible
+                          ? FontAwesomeIcons.eyeSlash
+                          : FontAwesomeIcons.eye,
                     ),
                   ),
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                  )
+                  label: const Text(
+                    'Password',
+                  ),
+                ),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                )
               ),
             ),
             Padding(
@@ -109,12 +114,34 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const TeacherMainPage(),
-                    ),
+                onPressed: () async {
+                  final message = await AuthService().login(
+                    email: _emailController.text,
+                    password: _passwordController.text,
                   );
+                  if (mounted) {
+                    if (message!.contains('Success')) {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const TeacherMainPage(),
+                        ),
+                      );
+                    }
+                    String loginMessage = (
+                        message.contains('Success')
+                        ? 'You have successfully logged in!'
+                        : message
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(loginMessage),
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        )
+                      ),
+                    );
+                  }
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
