@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:school_management/screens/teacher_main.dart';
 import 'firebase_options.dart';
 
-// import 'screens/login_page.dart';
+import 'screens/login_page.dart';
 import 'theme_settings/theme_data.dart';
 
 void main() async {
@@ -11,7 +11,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((value) => runApp(const MyApp()));
+
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'School Management',
       debugShowCheckedModeBanner: false,
       theme: preferredThemeData(),
-      home: const TeacherMainPage(),
+      home: const LoginPage(),
     );
   }
 }
