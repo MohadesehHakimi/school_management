@@ -6,7 +6,9 @@ DateTime mostRecentMonday(DateTime date) =>
     DateTime(date.year, date.month, date.day - (date.weekday - 1));
 
 class CustomAppBarCalendar extends StatefulWidget {
-  const CustomAppBarCalendar({super.key});
+  const CustomAppBarCalendar({super.key, required this.onDateChange});
+
+  final Function onDateChange;
 
   @override
   State<CustomAppBarCalendar> createState() => _CustomAppBarCalendarState();
@@ -37,6 +39,7 @@ class _CustomAppBarCalendarState extends State<CustomAppBarCalendar> {
           setState(() {
             _selectedDay = selectedDay;
             _focusedDay = selectedDay;
+            widget.onDateChange(selectedDay);
           });
         }
       },

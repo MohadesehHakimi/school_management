@@ -22,9 +22,9 @@ class _TeacherMainPageState extends State<TeacherMainPage> {
   @override
   void initState() {
     pages = <Widget>[
-      TeacherHomePage(user: widget.user),
-      TeacherHomePage(user: widget.user),
-      TeacherHomePage(user: widget.user),
+      TeacherHomePage(user: widget.user,),
+      TeacherHomePage(user: widget.user,),
+      TeacherHomePage(user: widget.user,),
       const TeacherProfile(),
     ];
     super.initState();

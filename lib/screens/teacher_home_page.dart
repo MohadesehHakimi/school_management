@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 
 import '../widgets/display_info_appbar.dart';
 import '../widgets/home_page_options.dart';
@@ -19,6 +20,13 @@ class TeacherHomePage extends StatefulWidget {
 class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProviderStateMixin {
 
   late final TabController _tabController;
+  DateTime date = DateTime.now();
+
+  void setDate(DateTime newDate) {
+    setState(() {
+      date = newDate;
+    });
+  }
 
   @override
   void initState() {
@@ -47,7 +55,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
           // AppBar
           PreferredSize(
             preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.4),
-            child: DisplayInfoAppBar(user: widget.user,),
+            child: DisplayInfoAppBar(user: widget.user, onDateChange: setDate,),
           ),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.45,
@@ -183,7 +191,9 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Events on July 20, 2023',
+                                      'Events on ${DateFormat.MMMM().format(date)} '
+                                          '${date.day}, '
+                                          '${date.year}',
                                       style: Theme.of(context).textTheme.bodyLarge,
                                     ),
                                   ],

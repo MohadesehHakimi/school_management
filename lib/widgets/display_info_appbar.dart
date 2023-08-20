@@ -6,8 +6,9 @@ import 'package:intl/intl.dart';
 import '../widgets/custom_appbar_calendar.dart';
 
 class DisplayInfoAppBar extends StatefulWidget {
-  const DisplayInfoAppBar({super.key, required this.user});
+  const DisplayInfoAppBar({super.key, required this.user, required this.onDateChange});
 
+  final Function onDateChange;
   final User? user;
 
   @override
@@ -115,7 +116,7 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
           const SizedBox(height: 30.0,),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.13,
-            child: const CustomAppBarCalendar(),
+            child: CustomAppBarCalendar(onDateChange: widget.onDateChange,),
           ),
           const SizedBox(height: 10.0,),
           const Divider(
