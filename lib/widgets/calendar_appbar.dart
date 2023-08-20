@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 import 'package:school_management/widgets/custom_appbar_calendar.dart';
 
@@ -53,7 +54,7 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
                     ),
                   ),
                   Text(
-                    'Select Date',
+                    'Select Date:',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
@@ -61,7 +62,7 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
               Row(
                 children: [
                   Text(
-                    'June 2022',
+                    DateFormat.yMMMM().format(DateTime.now()),
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w400
                     ),

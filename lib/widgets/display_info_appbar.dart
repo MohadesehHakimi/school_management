@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../widgets/custom_appbar_calendar.dart';
 
@@ -89,13 +90,13 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Select Date',
+                'Select Date:',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               Row(
                 children: [
                   Text(
-                    'June 2022',
+                    DateFormat.yMMMM().format(DateTime.now()),
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w400
                     ),

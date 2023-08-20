@@ -15,9 +15,11 @@ Column buildOptionsTable(BuildContext context) {
             'Attendance',
             Colors.green,
             () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) {
-                return const AttendanceTeacherPage();
-              }));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const AttendanceTeacherPage(),
+                ),
+              );
             },
           ),
           _buildIconAndLabelColumn(
