@@ -54,10 +54,29 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                 radius: 1.0,
               )
             ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Spacer(),
+                IconButton(
+                  onPressed: () {},
+                  icon: const FaIcon(FontAwesomeIcons.penToSquare),
+                  iconSize: 25.0,
+                  color: Colors.white,
+                ),
+                const SizedBox(width: 10.0,),
+                IconButton(
+                  onPressed: () {},
+                  icon: const FaIcon(FontAwesomeIcons.rightFromBracket),
+                  iconSize: 25.0,
+                  color: Colors.white,
+                ),
+              ],
+            )
           ),
         ),
         Positioned(
-          top: MediaQuery.of(context).size.height * 0.2,
+          top: MediaQuery.of(context).size.height * 0.25,
           left: 0.0,
           right: 0.0,
           bottom: 0.0,
@@ -248,10 +267,10 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
           ),
         ),
         Positioned(
-          top: MediaQuery.of(context).size.height * 0.13,
+          top: MediaQuery.of(context).size.height * 0.2,
           left: 0.0,
           right: 0.0,
-          bottom: MediaQuery.of(context).size.height * 0.58,
+          bottom: MediaQuery.of(context).size.height * 0.53,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 60.0),
             child: Material(
@@ -306,10 +325,10 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
           ),
         ),
         Positioned(
-          top: MediaQuery.of(context).size.height * 0.08,
+          top: MediaQuery.of(context).size.height * 0.13,
           left: 0.0,
           right: 0.0,
-          bottom: MediaQuery.of(context).size.height * 0.72,
+          bottom: MediaQuery.of(context).size.height * 0.67,
           child: const Material(
             elevation: 5.0,
             shape: CircleBorder(side: BorderSide.none),
