@@ -25,7 +25,7 @@ class _TeacherMainPageState extends State<TeacherMainPage> {
       TeacherHomePage(user: widget.user,),
       TeacherHomePage(user: widget.user,),
       TeacherHomePage(user: widget.user,),
-      const TeacherProfile(),
+      TeacherProfile(user: widget.user,),
     ];
     super.initState();
   }

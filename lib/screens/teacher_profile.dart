@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TeacherProfile extends StatefulWidget {
-  const TeacherProfile({super.key});
+  const TeacherProfile({super.key, required this.user});
+
+  final User user;
 
   @override
   State<TeacherProfile> createState() => _TeacherProfileState();
@@ -65,18 +69,178 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
               ),
               color: Colors.white,
             ),
-            padding: const EdgeInsets.only(
-              top: 45.0,
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.16,
               left: 20.0,
               right: 20.0,
             ),
             child: TabBarView(
               controller: _tabController,
-              children: const [
-                Center(
-                  child: Text('Personal'),
+              children: [
+                SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(
+                    bottom: 20.0,
+                  ),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Card(
+                          elevation: 5.0,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                          ),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 5.0,),
+                              ListTile(
+                                leading: const FaIcon(FontAwesomeIcons.user),
+                                title: const Padding(
+                                  padding: EdgeInsets.only(bottom: 8.0),
+                                  child: Text('Name',),
+                                ),
+                                subtitle: Text(widget.user.displayName!),
+                                iconColor: Theme.of(context).colorScheme.primary,
+                                titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                                subtitleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                titleAlignment: ListTileTitleAlignment.center,
+                              ),
+                              ListTile(
+                                leading: const FaIcon(FontAwesomeIcons.envelope),
+                                title: const Padding(
+                                  padding: EdgeInsets.only(bottom: 8.0),
+                                  child: Text('Email',),
+                                ),
+                                subtitle: Text(widget.user.email!),
+                                iconColor: Theme.of(context).colorScheme.primary,
+                                titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                                subtitleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                titleAlignment: ListTileTitleAlignment.center,
+                              ),
+                              ListTile(
+                                leading: const FaIcon(FontAwesomeIcons.phone),
+                                title: const Padding(
+                                  padding: EdgeInsets.only(bottom: 8.0),
+                                  child: Text('Phone',),
+                                ),
+                                subtitle: Text(widget.user.phoneNumber ?? '-'),
+                                iconColor: Theme.of(context).colorScheme.primary,
+                                titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                                subtitleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                titleAlignment: ListTileTitleAlignment.center,
+                              ),
+                              ListTile(
+                                leading: const FaIcon(FontAwesomeIcons.calendar),
+                                title: const Padding(
+                                  padding: EdgeInsets.only(bottom: 8.0),
+                                  child: Text('Date of Birth',),
+                                ),
+                                subtitle: const Text('-'),
+                                iconColor: Theme.of(context).colorScheme.primary,
+                                titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                                subtitleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                titleAlignment: ListTileTitleAlignment.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20.0,),
+                        Card(
+                          elevation: 5.0,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                          ),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 5.0,),
+                              ListTile(
+                                leading: const FaIcon(FontAwesomeIcons.idCard),
+                                title: const Padding(
+                                  padding: EdgeInsets.only(bottom: 8.0),
+                                  child: Text('ID',),
+                                ),
+                                subtitle: const Text('-'),
+                                iconColor: Theme.of(context).colorScheme.primary,
+                                titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                                subtitleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                titleAlignment: ListTileTitleAlignment.center,
+                              ),
+                              ListTile(
+                                leading: const FaIcon(FontAwesomeIcons.chalkboardUser),
+                                title: const Padding(
+                                  padding: EdgeInsets.only(bottom: 8.0),
+                                  child: Text('Subject',),
+                                ),
+                                subtitle: const Text('Science'),
+                                iconColor: Theme.of(context).colorScheme.primary,
+                                titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                                subtitleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                titleAlignment: ListTileTitleAlignment.center,
+                              ),
+                              ListTile(
+                                leading: const FaIcon(FontAwesomeIcons.book),
+                                title: const Padding(
+                                  padding: EdgeInsets.only(bottom: 8.0),
+                                  child: Text('Work Experience',),
+                                ),
+                                subtitle: const Text('5'),
+                                iconColor: Theme.of(context).colorScheme.primary,
+                                titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                                subtitleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                titleAlignment: ListTileTitleAlignment.center,
+                              ),
+                              ListTile(
+                                leading: const FaIcon(FontAwesomeIcons.userGraduate),
+                                title: const Padding(
+                                  padding: EdgeInsets.only(bottom: 8.0),
+                                  child: Text('Education',),
+                                ),
+                                subtitle: const Text('B.Sc'),
+                                iconColor: Theme.of(context).colorScheme.primary,
+                                titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Colors.grey,
+                                ),
+                                subtitleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                titleAlignment: ListTileTitleAlignment.center,
+                              ),
+                            ],
+                          )
+                        ),
+                      ]
+                    ),
+                  ),
                 ),
-                Center(
+                const Center(
                   child: Text('Stats'),
                 ),
               ],
@@ -104,12 +268,12 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                     Column(
                       children: [
                         Text(
-                          'John Doe',
+                          widget.user.displayName!,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(height: 5.0),
                         Text(
-                          'Teacher  |  ID: 12345',
+                          'Teacher',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],

@@ -11,7 +11,7 @@ import '../models/event.dart';
 class TeacherHomePage extends StatefulWidget {
   const TeacherHomePage({super.key, required this.user});
 
-  final User? user;
+  final User user;
 
   @override
   State<TeacherHomePage> createState() => _TeacherHomePageState();

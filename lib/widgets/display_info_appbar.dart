@@ -44,7 +44,7 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
               Column(
                 children: [
                   Text(
-                    widget.user!.displayName ?? 'Ernest Hemingway',
+                    widget.user!.displayName!,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 5.0,),
