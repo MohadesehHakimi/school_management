@@ -407,115 +407,89 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                                   itemBuilder: (context, index) {
                                     return ExpansionTile(
                                       title: Text(
-                                        sampleClasses[index].subject,
-                                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        '${sampleClasses[index].time.hour}:${sampleClasses[index].time.minute} '
-                                            '- ${sampleClasses[index].time.hour + 1}:${sampleClasses[index].time.minute}',
+                                        dayToString(sampleClasses[index].day),
                                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                           fontWeight: FontWeight.bold,
+                                          color: Theme.of(context).colorScheme.primary,
+                                        ),
+                                      ),
+                                      subtitle: Padding(
+                                        padding: const EdgeInsets.only(top: 8.0),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              sampleClasses[index].subject,
+                                              style: Theme.of(context).textTheme.bodyMedium,
+                                            ),
+                                            Text(
+                                              ' - ',
+                                              style: Theme.of(context).textTheme.bodyMedium,
+                                            ),
+                                            Text(
+                                              '${sampleClasses[index].time.hour}:${sampleClasses[index].time.minute}',
+                                              style: Theme.of(context).textTheme.bodyMedium,
+                                            ),
+                                          ]
                                         ),
                                       ),
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              Text(
-                                                'Class: ',
-                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                  color: Colors.grey,
-                                                ),
+                                              Text.rich(
+                                                TextSpan(
+                                                  style: Theme.of(context).textTheme.bodyMedium,
+                                                  children: [
+                                                    const TextSpan(
+                                                      text: 'Grade: ',
+                                                    ),
+                                                    TextSpan(
+                                                      text: sampleClasses[index].grade.toString(),
+                                                      style: const TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                      )
+                                                    ),
+                                                  ]
+                                                )
                                               ),
-                                              Text(
-                                                sampleClasses[index].room.toString(),
-                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                              Text.rich(
+                                                TextSpan(
+                                                  style: Theme.of(context).textTheme.bodyMedium,
+                                                  children: [
+                                                    const TextSpan(
+                                                      text: 'Section: ',
+                                                    ),
+                                                    TextSpan(
+                                                      text: sampleClasses[index].section,
+                                                      style: const TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                      )
+                                                    ),
+                                                  ]
+                                                )
                                               ),
+                                              Text.rich(
+                                                TextSpan(
+                                                  style: Theme.of(context).textTheme.bodyMedium,
+                                                  children: [
+                                                    const TextSpan(
+                                                      text: 'Room: ',
+                                                    ),
+                                                    TextSpan(
+                                                      text: sampleClasses[index].room.toString(),
+                                                      style: const TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ]
+                                                )
+                                              )
                                             ],
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'Section: ',
-                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                sampleClasses[index].section,
-                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'Subject: ',
-                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                sampleClasses[index].subject,
-                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'Time: ',
-                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                sampleClasses[index].time.toString(),
-                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'Teacher: ',
-                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                sampleClasses[index].teacher,
-                                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                      ]
                                     );
                                   }
                                 ),
