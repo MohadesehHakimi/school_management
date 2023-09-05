@@ -12,17 +12,15 @@ class CustomBottomNavigationBar extends ConsumerStatefulWidget {
 }
 
 class _CustomBottomNavigationBarState extends ConsumerState<CustomBottomNavigationBar> {
-  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     ref.read(teacherHomepageTabsProvider.notifier).changeTab(index);
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final int selectedIndex = ref.watch(teacherHomepageTabsProvider);
+
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.08,
       child: ClipRRect(
@@ -50,7 +48,7 @@ class _CustomBottomNavigationBarState extends ConsumerState<CustomBottomNavigati
               label: 'Profile',
             ),
           ],
-          currentIndex: _selectedIndex,
+          currentIndex: selectedIndex,
           showUnselectedLabels: false,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white,
