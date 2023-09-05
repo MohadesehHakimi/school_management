@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'screens/login_page.dart';
 import 'theme_settings/theme_data.dart';
@@ -13,8 +14,10 @@ void main() async {
   );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-  ]).then((value) => runApp(const MyApp()));
-
+  ]).then((value) => runApp(
+    const ProviderScope(
+      child: MyApp()))
+  );
 }
 
 class MyApp extends StatelessWidget {
