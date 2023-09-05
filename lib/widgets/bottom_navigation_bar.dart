@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({super.key, required this.onTabChange});
+import '../providers/teacher_mainPage_tabs_provider.dart';
 
-  final Function onTabChange;
+class CustomBottomNavigationBar extends ConsumerStatefulWidget {
+  const CustomBottomNavigationBar({super.key});
 
   @override
-  State<CustomBottomNavigationBar> createState() => _CustomBottomNavigationBarState();
+  ConsumerState<CustomBottomNavigationBar> createState() => _CustomBottomNavigationBarState();
 }
 
-class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+class _CustomBottomNavigationBarState extends ConsumerState<CustomBottomNavigationBar> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
+    ref.read(teacherHomepageTabsProvider.notifier).changeTab(index);
     setState(() {
       _selectedIndex = index;
-      widget.onTabChange(index);
     });
   }
 

@@ -426,7 +426,8 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                                               style: Theme.of(context).textTheme.bodyMedium,
                                             ),
                                             Text(
-                                              '${sampleClasses[index].time.hour}:${sampleClasses[index].time.minute}',
+                                              '${sampleClasses[index].time.hour}:'
+                                                  '${sampleClasses[index].time.minute}',
                                               style: Theme.of(context).textTheme.bodyMedium,
                                             ),
                                           ]

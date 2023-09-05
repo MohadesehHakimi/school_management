@@ -183,7 +183,7 @@ class AttendanceStudentPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(onTabChange: () {},),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }
