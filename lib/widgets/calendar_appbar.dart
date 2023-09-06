@@ -81,7 +81,7 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
           const SizedBox(height: 15.0,),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.13,
-            child: CustomAppBarCalendar(onDateChange: () {},),
+            child: const CustomAppBarCalendar(),
           ),
           const SizedBox(height: 10.0,),
           const Divider(

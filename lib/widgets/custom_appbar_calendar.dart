@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+
+import '../providers/picked_date_provider.dart';
 
 DateTime mostRecentMonday(DateTime date) =>
     DateTime(date.year, date.month, date.day - (date.weekday - 1));
 
-class CustomAppBarCalendar extends StatefulWidget {
-  const CustomAppBarCalendar({super.key, required this.onDateChange});
-
-  final Function onDateChange;
+class CustomAppBarCalendar extends ConsumerStatefulWidget {
+  const CustomAppBarCalendar({super.key});
 
   @override
-  State<CustomAppBarCalendar> createState() => _CustomAppBarCalendarState();
+  ConsumerState<CustomAppBarCalendar> createState() => _CustomAppBarCalendarState();
 }
 
-class _CustomAppBarCalendarState extends State<CustomAppBarCalendar> {
+class _CustomAppBarCalendarState extends ConsumerState<CustomAppBarCalendar> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
   @override
   Widget build(BuildContext context) {
+    _selectedDay = ref.watch(pickedDateProvider);
+
     return TableCalendar(
       shouldFillViewport: true,
       headerVisible: false,
@@ -36,10 +39,9 @@ class _CustomAppBarCalendarState extends State<CustomAppBarCalendar> {
       },
       onDaySelected: (selectedDay, focusedDay) {
         if (!isSameDay(_selectedDay, selectedDay)) {
+          ref.read(pickedDateProvider.notifier).changeDate(selectedDay);
           setState(() {
-            _selectedDay = selectedDay;
             _focusedDay = selectedDay;
-            widget.onDateChange(selectedDay);
           });
         }
       },

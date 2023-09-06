@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../providers/picked_date_provider.dart';
 import '../widgets/display_info_appbar.dart';
 import '../widgets/home_page_options.dart';
 import '../widgets/search_bar.dart';
 import '../models/class.dart';
 import '../models/event.dart';
 
-class TeacherHomePage extends StatefulWidget {
+class TeacherHomePage extends ConsumerStatefulWidget {
   const TeacherHomePage({super.key, required this.user});
 
   final User user;
 
   @override
-  State<TeacherHomePage> createState() => _TeacherHomePageState();
+  ConsumerState<TeacherHomePage> createState() => _TeacherHomePageState();
 }
 
-class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProviderStateMixin {
+class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTickerProviderStateMixin {
 
   late final TabController _tabController;
   DateTime date = DateTime.now();
 
   void setDate(DateTime newDate) {
-    setState(() {
-      date = newDate;
-    });
+    ref.read(pickedDateProvider.notifier).changeDate(newDate);
   }
 
   @override
   void initState() {
-    super.initState();
     _tabController = TabController(
       length: 3,
       vsync: this,
     );
+    super.initState();
   }
 
   @override
@@ -45,6 +45,8 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
+    date = ref.watch(pickedDateProvider);
+
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -55,7 +57,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> with SingleTickerProv
           // AppBar
           PreferredSize(
             preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.4),
-            child: DisplayInfoAppBar(user: widget.user, onDateChange: setDate,),
+            child: DisplayInfoAppBar(user: widget.user),
           ),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.45,
