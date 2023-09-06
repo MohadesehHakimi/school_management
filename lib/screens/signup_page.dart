@@ -7,6 +7,8 @@ import '../providers/user_provider.dart';
 import '../screens/teacher_main.dart';
 import '../screens/login_page.dart';
 
+String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
 class SignUpPage extends ConsumerStatefulWidget {
   const SignUpPage({super.key});
 
@@ -154,7 +156,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                       final message = await AuthService().registration(
                         email: _emailController.text,
                         password: _passwordController.text,
-                        displayName: _displayNameController.text,
+                        displayName: _displayNameController.text.split(' ').map((e) => capitalize(e)).join(' '),
                       );
                       bool isUser = await ref.read(userProvider.notifier).setUser();
                       if (mounted) {
