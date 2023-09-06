@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../providers/user_provider.dart';
 import '../providers/picked_date_provider.dart';
 import '../widgets/display_info_appbar.dart';
 import '../widgets/home_page_options.dart';
@@ -11,9 +12,7 @@ import '../models/class.dart';
 import '../models/event.dart';
 
 class TeacherHomePage extends ConsumerStatefulWidget {
-  const TeacherHomePage({super.key, required this.user});
-
-  final User user;
+  const TeacherHomePage({super.key});
 
   @override
   ConsumerState<TeacherHomePage> createState() => _TeacherHomePageState();
@@ -22,6 +21,7 @@ class TeacherHomePage extends ConsumerStatefulWidget {
 class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTickerProviderStateMixin {
 
   late final TabController _tabController;
+  User? user;
   DateTime date = DateTime.now();
 
   void setDate(DateTime newDate) {
@@ -30,11 +30,12 @@ class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTi
 
   @override
   void initState() {
+    super.initState();
+    user = ref.read(userProvider);
     _tabController = TabController(
       length: 3,
       vsync: this,
     );
-    super.initState();
   }
 
   @override
@@ -46,6 +47,7 @@ class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTi
   @override
   Widget build(BuildContext context) {
     date = ref.watch(pickedDateProvider);
+    user = ref.watch(userProvider)!;
 
     return GestureDetector(
       onTap: () {
@@ -57,7 +59,7 @@ class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTi
           // AppBar
           PreferredSize(
             preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.4),
-            child: DisplayInfoAppBar(user: widget.user),
+            child: const DisplayInfoAppBar(),
           ),
           Positioned(
             top: MediaQuery.of(context).size.height * 0.45,

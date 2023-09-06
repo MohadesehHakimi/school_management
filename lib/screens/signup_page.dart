@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:school_management/cloud_functions/auth_service.dart';
+import '../cloud_functions/auth_service.dart';
+import '../providers/user_provider.dart';
 import '../screens/teacher_main.dart';
 import '../screens/login_page.dart';
 
-class SignUpPage extends StatefulWidget {
+class SignUpPage extends ConsumerStatefulWidget {
   const SignUpPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  ConsumerState<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpPageState extends ConsumerState<SignUpPage> {
 
   bool _isPasswordVisible = false;
   final TextEditingController _emailController = TextEditingController();
@@ -155,23 +156,16 @@ class _SignUpPageState extends State<SignUpPage> {
                         password: _passwordController.text,
                         displayName: _displayNameController.text,
                       );
-                      late final User user;
-                      FirebaseAuth.instance
-                          .authStateChanges()
-                          .listen((User? thisUser) {
-                        if (thisUser != null) {
-                          user = thisUser;
-                        }
-                      });
+                      bool isUser = await ref.read(userProvider.notifier).setUser();
                       if (mounted) {
-                        if (message!.contains('Success')) {
+                        if (message!.contains('Success') && isUser) {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      TeacherMainPage(user: user)));
+                                      const TeacherMainPage()));
                         }
                         String signupMessage = (
-                            message.contains('Success')
+                            message.contains('Success') && isUser
                                 ? 'You have successfully signed up!'
                                 : message
                         );

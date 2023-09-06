@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../providers/user_provider.dart';
 import '../models/class.dart';
 
-class TeacherProfile extends StatefulWidget {
-  const TeacherProfile({super.key, required this.user});
-
-  final User user;
+class TeacherProfile extends ConsumerStatefulWidget {
+  const TeacherProfile({super.key});
 
   @override
-  State<TeacherProfile> createState() => _TeacherProfileState();
+  ConsumerState<TeacherProfile> createState() => _TeacherProfileState();
 }
 
-class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProviderStateMixin {
+class _TeacherProfileState extends ConsumerState<TeacherProfile> with SingleTickerProviderStateMixin {
 
   late final TabController _tabController;
+  User? user;
 
   @override
   void initState() {
     super.initState();
+    user = ref.read(userProvider);
     _tabController = TabController(
       length: 2,
       vsync: this,
@@ -34,6 +36,8 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
+    user = ref.watch(userProvider)!;
+
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -122,7 +126,7 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                                   padding: EdgeInsets.only(bottom: 8.0),
                                   child: Text('Name',),
                                 ),
-                                subtitle: Text(widget.user.displayName!),
+                                subtitle: Text(user!.displayName!),
                                 iconColor: Theme.of(context).colorScheme.primary,
                                 titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                   color: Colors.grey,
@@ -138,7 +142,7 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                                   padding: EdgeInsets.only(bottom: 8.0),
                                   child: Text('Email',),
                                 ),
-                                subtitle: Text(widget.user.email!),
+                                subtitle: Text(user!.email!),
                                 iconColor: Theme.of(context).colorScheme.primary,
                                 titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                   color: Colors.grey,
@@ -154,7 +158,7 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                                   padding: EdgeInsets.only(bottom: 8.0),
                                   child: Text('Phone',),
                                 ),
-                                subtitle: Text(widget.user.phoneNumber ?? '-'),
+                                subtitle: Text(user!.phoneNumber ?? '-'),
                                 iconColor: Theme.of(context).colorScheme.primary,
                                 titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                   color: Colors.grey,
@@ -527,7 +531,7 @@ class _TeacherProfileState extends State<TeacherProfile> with SingleTickerProvid
                     Column(
                       children: [
                         Text(
-                          widget.user.displayName!,
+                          user!.displayName!,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(height: 5.0),

@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
+import '../providers/user_provider.dart';
 import '../widgets/custom_appbar_calendar.dart';
 
-class DisplayInfoAppBar extends StatefulWidget {
-  const DisplayInfoAppBar({super.key, required this.user});
-
-  final User? user;
+class DisplayInfoAppBar extends ConsumerStatefulWidget {
+  const DisplayInfoAppBar({super.key});
 
   @override
-  State<DisplayInfoAppBar> createState() => _DisplayInfoAppBarState();
+  ConsumerState<DisplayInfoAppBar> createState() => _DisplayInfoAppBarState();
 }
 
-class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
+class _DisplayInfoAppBarState extends ConsumerState<DisplayInfoAppBar> {
+
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = ref.read(userProvider);
+  }
 
   @override
   Widget build(BuildContext context) {
+    user = ref.watch(userProvider)!;
+
     return Container(
       padding: const EdgeInsets.only(
         top: 50.0,
@@ -43,7 +53,7 @@ class _DisplayInfoAppBarState extends State<DisplayInfoAppBar> {
               Column(
                 children: [
                   Text(
-                    widget.user!.displayName!,
+                    user!.displayName!,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 5.0,),
