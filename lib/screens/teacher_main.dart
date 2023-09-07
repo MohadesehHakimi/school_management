@@ -7,30 +7,19 @@ import '../screens/teacher_home_page.dart';
 import '../screens/teacher_profile.dart';
 
 
-class TeacherMainPage extends ConsumerStatefulWidget {
+class TeacherMainPage extends ConsumerWidget {
   const TeacherMainPage({super.key});
 
   @override
-  ConsumerState<TeacherMainPage> createState() => _TeacherMainPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final int selectedIndex = ref.watch(teacherHomepageTabsProvider);
 
-class _TeacherMainPageState extends ConsumerState<TeacherMainPage> {
-  late final List<Widget> pages;
-
-  @override
-  void initState() {
-    super.initState();
-    pages = <Widget>[
+    List<Widget> pages = <Widget>[
       const TeacherHomePage(),
       const TeacherHomePage(),
       const TeacherHomePage(),
       const TeacherProfile(),
     ];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final int selectedIndex = ref.watch(teacherHomepageTabsProvider);
 
     return Scaffold(
       body: IndexedStack(
