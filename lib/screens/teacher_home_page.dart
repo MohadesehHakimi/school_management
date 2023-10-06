@@ -137,47 +137,7 @@ class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTi
                                     )
                                   ]
                                 ),
-                                ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: sampleClasses.length,
-                                  itemBuilder: (context, index) {
-                                    return Card(
-                                      elevation: 5.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                      ),
-                                      child: ListTile(
-                                        leading: CircleAvatar(
-                                          radius: 25.0,
-                                          backgroundColor: Colors.grey,
-                                          child: Text(
-                                            sampleClasses[index].subject[0],
-                                            style: Theme.of(context).textTheme.bodyMedium,
-                                          ),
-                                        ),
-                                        title: Text(
-                                          sampleClasses[index].subject,
-                                          style: Theme.of(context).textTheme.bodyMedium,
-                                        ),
-                                        subtitle: Text(
-                                          "${sampleClasses[index].grade}th Grade "
-                                              "${sampleClasses[index].section} Section",
-                                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                            color: Colors.grey,
-                                            fontSize: 14.0,
-                                          ),
-                                        ),
-                                        trailing: Text(
-                                          "${sampleClasses[index].time.hour}:"
-                                              "${sampleClasses[index].time.minute}",
-                                          style: Theme.of(context).textTheme.bodyMedium,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                )
+                                buildClassesListView(),
                               ],
                             ),
                           ),
@@ -202,47 +162,7 @@ class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTi
                                     ),
                                   ],
                                 ),
-                                ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: sampleEvents.length,
-                                  itemBuilder: (context, index) {
-                                    return Card(
-                                      elevation: 5.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                      ),
-                                      child: ListTile(
-                                        leading: CircleAvatar(
-                                          radius: 25.0,
-                                          backgroundColor: Colors.grey,
-                                          child: Text(
-                                            sampleEvents[index].title[0],
-                                            style: Theme.of(context).textTheme.bodyMedium,
-                                          ),
-                                        ),
-                                        title: Text(
-                                          sampleEvents[index].title,
-                                          style: Theme.of(context).textTheme.bodyMedium,
-                                        ),
-                                        subtitle: Text(
-                                          "${sampleEvents[index].grade}th Grade "
-                                              "${sampleEvents[index].section} Section",
-                                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                            color: Colors.grey,
-                                            fontSize: 14.0,
-                                          ),
-                                        ),
-                                        trailing: Text(
-                                          "${sampleEvents[index].time.hour}:"
-                                              "${sampleEvents[index].time.minute}",
-                                          style: Theme.of(context).textTheme.bodyMedium,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                buildEventsListView(),
                               ],
                             ),
                           ),
@@ -266,4 +186,116 @@ class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTi
       ),
     );
   }
+}
+
+Widget buildClassesListView() {
+  return sampleClasses.isEmpty ?
+    const Column(
+      children: [
+        SizedBox(height: 80.0,),
+        Text(
+          'No Classes Yet!',  // fallback message
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+      ],
+    ) :
+  ListView.builder(
+    physics: const NeverScrollableScrollPhysics(),
+    shrinkWrap: true,
+    scrollDirection: Axis.vertical,
+    itemCount: sampleClasses.length,
+    itemBuilder: (context, index) {
+      return Card(
+        elevation: 5.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: 25.0,
+            backgroundColor: Colors.grey,
+            child: Text(
+              sampleClasses[index].subject[0],
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+          title: Text(
+            sampleClasses[index].subject,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          subtitle: Text(
+            "${sampleClasses[index].grade}th Grade "
+                "${sampleClasses[index].section} Section",
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.grey,
+              fontSize: 14.0,
+            ),
+          ),
+          trailing: Text(
+            "${sampleClasses[index].time.hour}:"
+                "${sampleClasses[index].time.minute}",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Widget buildEventsListView() {
+  return sampleEvents.isEmpty ?
+    const Column(
+      children: [
+        SizedBox(height: 100.0,),
+        Text(
+          'No Events Yet!',  // fallback message
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+      ],
+    ) :
+  ListView.builder(
+    physics: const NeverScrollableScrollPhysics(),
+    shrinkWrap: true,
+    scrollDirection: Axis.vertical,
+    itemCount: sampleEvents.length,
+    itemBuilder: (context, index) {
+      return Card(
+        elevation: 5.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: 25.0,
+            backgroundColor: Colors.grey,
+            child: Text(
+              sampleEvents[index].title[0],
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+          title: Text(
+            sampleEvents[index].title,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          subtitle: Text(
+            "${sampleEvents[index].grade}th Grade "
+                "${sampleEvents[index].section} Section",
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.grey,
+              fontSize: 14.0,
+            ),
+          ),
+          trailing: Text(
+            "${sampleEvents[index].time.hour}:"
+                "${sampleEvents[index].time.minute}",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+      );
+    },
+  );
 }
