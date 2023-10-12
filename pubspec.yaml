@@ -37,6 +37,7 @@ dependencies:
   intl: ^0.18.1
   syncfusion_flutter_charts: ^22.2.5
   flutter_riverpod: ^2.3.10
+  http: ^0.13.4
 
 dependency_overrides:
   font_awesome_flutter:
