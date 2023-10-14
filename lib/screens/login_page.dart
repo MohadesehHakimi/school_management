@@ -173,20 +173,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               builder: (context) => const TeacherMainPage(),
                             ),
                           );
-                        } else {
-
-                        }
+                        } else {}
                       }
                     }
-                    String? loginMessage = message == 'Success' && userType != 'error'
-                        ? 'You have successfully logged in!'
-                        : (message == 'Success' && userType == 'error'
-                            ? 'An error occurred. Please try again.'
-                            : message);
+                    String? loginMessage =
+                        message == 'Success' && userType != 'error'
+                            ? 'You have successfully logged in!'
+                            : (message == 'Success' && userType == 'error'
+                                ? 'An error occurred. Please try again.'
+                                : message);
+                    loginMessage = loginMessage!.length > 100
+                        ? 'An error occurred. Please try again.'
+                        : loginMessage;
                     if (mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(loginMessage!),
+                          content: Text(loginMessage),
                         ),
                       );
                     }
