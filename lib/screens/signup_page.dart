@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:school_management/screens/attendance_student_page.dart';
 
 import '../cloud_functions/auth_service.dart';
 import '../providers/user_provider.dart';
@@ -320,10 +321,21 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                         await FirebaseAuth.instance.currentUser!.delete();
                       } else {
                         if (mounted) {
-                          Navigator.of(context).pushReplacement(
+                          if (_userType == UserType.student) {
+                            Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const TeacherMainPage()));
+                                builder: (context) => const AttendanceStudentPage(),
+                              ),
+                            );
+                          } else if (_userType == UserType.teacher) {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const TeacherMainPage(),
+                              ),
+                            );
+                          } else if (_userType == UserType.staff) {
+
+                          }
                           String snackbarMessage = signupMessage == 'Success'
                               ? 'You are successfully signed up!'
                               : signupMessage;
