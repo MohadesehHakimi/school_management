@@ -15,6 +15,11 @@ class UserNotifier extends StateNotifier<User?> {
     }).first;
     return isUser;
   }
+
+  void signOut() {
+    FirebaseAuth.instance.signOut();
+    state = null;
+  }
 }
 
 final userProvider =

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../providers/user_provider.dart';
+import '../screens/login_page.dart';
 import '../models/class.dart';
 
 class TeacherProfile extends ConsumerStatefulWidget {
@@ -72,7 +73,22 @@ class _TeacherProfileState extends ConsumerState<TeacherProfile> with SingleTick
                 ),
                 const SizedBox(width: 10.0,),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // sign out and go to login page
+                    ref.read(userProvider.notifier).signOut();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                          (route) => false,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Signed out successfully!'),
+                      ),
+                    );
+                  },
                   icon: const FaIcon(FontAwesomeIcons.rightFromBracket),
                   iconSize: 25.0,
                   color: Colors.white,
