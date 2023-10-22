@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:school_management/screens/attendance_student_page.dart';
 
 import '../cloud_functions/auth_service.dart';
 import '../providers/user_provider.dart';
+import '../providers/user_type_provider.dart';
 import '../screens/login_page.dart';
 import '../screens/teacher_main.dart';
+import '../screens/student_attendance_page.dart';
+
 
 enum UserType {
   staff,
@@ -307,10 +309,19 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     if (_formKey.currentState!.validate()) {
                       String signupMessage = '';
                       if (_userType == UserType.student) {
+                        ref.read(userTypeProvider.notifier).setUserType(
+                              UserType.student.name,
+                            );
                         signupMessage = await signupStudent();
                       } else if (_userType == UserType.teacher) {
+                        ref.read(userTypeProvider.notifier).setUserType(
+                              UserType.teacher.name,
+                            );
                         signupMessage = await signupTeacher();
                       } else if (_userType == UserType.staff) {
+                        ref.read(userTypeProvider.notifier).setUserType(
+                              UserType.staff.name,
+                            );
                         signupMessage = await signupStaff();
                       }
                       signupMessage = signupMessage.length < 100
@@ -324,7 +335,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           if (_userType == UserType.student) {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (context) => const AttendanceStudentPage(),
+                                builder: (context) => const StudentAttendancePage(),
                               ),
                             );
                           } else if (_userType == UserType.teacher) {

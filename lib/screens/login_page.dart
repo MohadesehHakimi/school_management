@@ -7,8 +7,10 @@ import 'package:http/http.dart' as http;
 
 import '../cloud_functions/auth_service.dart';
 import '../providers/user_provider.dart';
+import '../providers/user_type_provider.dart';
 import '../screens/signup_page.dart';
 import '../screens/teacher_main.dart';
+import '../screens/student_main.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -168,12 +170,29 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       userType = await _fetchUserType();
                       if (mounted) {
                         if (userType == 'teacher') {
+                          ref.read(userTypeProvider.notifier).setUserType(
+                                'teacher',
+                              );
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => const TeacherMainPage(),
                             ),
                           );
-                        } else {}
+                        } else if (userType == 'student') {
+                          ref.read(userTypeProvider.notifier).setUserType(
+                                'student',
+                              );
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const StudentMainPage(),
+                            ),
+                          );
+                        } else if (userType == 'staff') {
+                          ref.read(userTypeProvider.notifier).setUserType(
+                                'staff',
+                              );
+
+                        }
                       }
                     }
                     String? loginMessage =

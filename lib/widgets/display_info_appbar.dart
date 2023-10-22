@@ -5,6 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../providers/user_provider.dart';
+import '../providers/user_type_provider.dart';
+import '../screens/signup_page.dart';
 import '../widgets/custom_appbar_calendar.dart';
 
 class DisplayInfoAppBar extends ConsumerStatefulWidget {
@@ -17,11 +19,13 @@ class DisplayInfoAppBar extends ConsumerStatefulWidget {
 class _DisplayInfoAppBarState extends ConsumerState<DisplayInfoAppBar> {
 
   User? user;
+  String userType = '';
 
   @override
   void initState() {
     super.initState();
     user = ref.read(userProvider);
+    userType = capitalize(ref.read(userTypeProvider));
   }
 
   @override
@@ -58,7 +62,7 @@ class _DisplayInfoAppBarState extends ConsumerState<DisplayInfoAppBar> {
                   ),
                   const SizedBox(height: 5.0,),
                   Text(
-                    'ID: 12345 | Teacher',
+                    'ID: 12345 | $userType',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w400
                     ),

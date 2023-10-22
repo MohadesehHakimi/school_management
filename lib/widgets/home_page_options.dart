@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../screens/attendance_teacher_page.dart';
+import '../screens/teacher_attendance_page.dart';
+import '../screens/student_attendance_page.dart';
 
-Column buildOptionsTable(BuildContext context) {
+Column buildOptionsTable(BuildContext context, String userType) {
   return Column(
     children: [
       Row(
@@ -15,11 +16,28 @@ Column buildOptionsTable(BuildContext context) {
             'Attendance',
             Colors.green,
             () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const AttendanceTeacherPage(),
-                ),
-              );
+              switch (userType) {
+                case 'teacher':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TeacherAttendancePage(),
+                    ),
+                  );
+                  break;
+                case 'student':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const StudentAttendancePage(),
+                    ),
+                  );
+                  break;
+                case 'staff':
+
+                  break;
+                default:
+              }
             },
           ),
           _buildIconAndLabelColumn(

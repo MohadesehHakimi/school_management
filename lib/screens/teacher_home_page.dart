@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../providers/user_provider.dart';
+import '../providers/user_type_provider.dart';
 import '../providers/picked_date_provider.dart';
 import '../widgets/display_info_appbar.dart';
 import '../widgets/home_page_options.dart';
@@ -112,7 +113,7 @@ class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTi
                             padding: const EdgeInsets.all(20.0),
                             child: Column(
                               children: [
-                                buildOptionsTable(context),
+                                buildOptionsTable(context, ref.read(userTypeProvider)),
                                 const Divider(
                                   color: Colors.grey,
                                   thickness: 1.0,
@@ -144,7 +145,7 @@ class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTi
                           // Monthly
                           Container(
                             padding: const EdgeInsets.all(20.0),
-                            child: buildOptionsTable(context),
+                            child: buildOptionsTable(context, ref.read(userTypeProvider)),
                           ),
                           // Events
                           Container(
