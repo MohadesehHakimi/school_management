@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../providers/teacher_mainPage_tabs_provider.dart';
+import '../providers/main_page_tabs_provider.dart';
 
 class CustomBottomNavigationBar extends ConsumerStatefulWidget {
   const CustomBottomNavigationBar({super.key});
@@ -14,12 +14,12 @@ class CustomBottomNavigationBar extends ConsumerStatefulWidget {
 class _CustomBottomNavigationBarState extends ConsumerState<CustomBottomNavigationBar> {
 
   void _onItemTapped(int index) {
-    ref.read(teacherHomepageTabsProvider.notifier).changeTab(index);
+    ref.read(mainPageTabsProvider.notifier).changeTab(index);
   }
 
   @override
   Widget build(BuildContext context) {
-    final int selectedIndex = ref.watch(teacherHomepageTabsProvider);
+    final int selectedIndex = ref.watch(mainPageTabsProvider);
 
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.08,
