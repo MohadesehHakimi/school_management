@@ -13,8 +13,8 @@ List<Map<String, List<int>>> sampleAttendance = [
   }  
 ];
 
-class AttendanceStudentPage extends StatelessWidget {
-  const AttendanceStudentPage({super.key});
+class StudentAttendancePage extends StatelessWidget {
+  const StudentAttendancePage({super.key});
 
   @override
   Widget build(BuildContext context) {
