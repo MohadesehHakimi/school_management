@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../cloud_functions/auth_service.dart';
+import '../providers/loading_animation_provider.dart';
 import '../providers/user_provider.dart';
 import '../providers/user_type_provider.dart';
 import '../screens/signup_page.dart';
-import '../screens/teacher_main.dart';
 import '../screens/student_main.dart';
+import '../screens/teacher_main.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -53,12 +55,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
-      child: Scaffold(
-          body: Form(
+    final isLoading = ref.watch(loadingAnimationProvider);
+
+    Widget buildScaffoldBody;
+    if (isLoading) {
+      buildScaffoldBody = Center(
+        child: LoadingAnimationWidget.newtonCradle(
+          color: Colors.blue,
+          size: 170.0,
+        ),
+      );
+    } else {
+      buildScaffoldBody = Form(
         key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -156,6 +164,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               padding: const EdgeInsets.only(top: 20.0),
               child: TextButton(
                 onPressed: () async {
+                  // change isLoading to true
+                  ref.read(loadingAnimationProvider.notifier).setLoading(true);
                   var userType = '';
                   FocusManager.instance.primaryFocus?.unfocus();
                   if (_formKey.currentState!.validate()) {
@@ -191,7 +201,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           ref.read(userTypeProvider.notifier).setUserType(
                                 'staff',
                               );
-
                         }
                       }
                     }
@@ -205,6 +214,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         ? 'An error occurred. Please try again.'
                         : loginMessage;
                     if (mounted) {
+                      // change isLoading to false
+                      ref
+                          .read(loadingAnimationProvider.notifier)
+                          .setLoading(false);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(loginMessage),
@@ -253,7 +266,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             )
           ],
         ),
-      )),
+      );
+    }
+
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        body: buildScaffoldBody,
+      ),
     );
   }
 }
