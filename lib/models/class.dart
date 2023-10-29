@@ -78,4 +78,13 @@ List<Class> sampleClasses = [
     day: Day.thursday,
     time: DateTime(2021, 10, 10, 16, 30)
   ),
+  Class(
+    subject: 'Computer Science',
+    teacher: 'Mr. John Doe',
+    grade: 10,
+    section: 'E',
+    room: 104,
+    day: Day.friday,
+    time: DateTime(2021, 10, 10, 18, 30)
+  ),
 ];
