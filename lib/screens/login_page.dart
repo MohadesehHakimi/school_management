@@ -11,8 +11,8 @@ import '../providers/loading_animation_provider.dart';
 import '../providers/user_provider.dart';
 import '../providers/user_type_provider.dart';
 import '../screens/signup_page.dart';
-import '../screens/student_main.dart';
-import '../screens/teacher_main.dart';
+import 'student/student_main.dart';
+import 'teacher/teacher_main.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});

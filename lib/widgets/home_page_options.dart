@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../screens/teacher_attendance_page.dart';
-import '../screens/student_attendance_page.dart';
+import '../screens/student/student_timetable_page.dart';
+import '../screens/student/student_attendance_page.dart';
+import '../screens/teacher/teacher_attendance_page.dart';
 
 Column buildOptionsTable(BuildContext context, String userType) {
   return Column(
@@ -34,7 +35,6 @@ Column buildOptionsTable(BuildContext context, String userType) {
                   );
                   break;
                 case 'staff':
-
                   break;
                 default:
               }
@@ -45,18 +45,20 @@ Column buildOptionsTable(BuildContext context, String userType) {
             FontAwesomeIcons.bookBookmark,
             'Homeworks',
             Colors.orange,
-              () {},
+            () {},
           ),
           _buildIconAndLabelColumn(
             context,
             FontAwesomeIcons.userCheck,
             'Behavior',
             Colors.purple,
-              () {},
+            () {},
           ),
         ],
       ),
-      const SizedBox(height: 20.0,),
+      const SizedBox(
+        height: 20.0,
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -65,25 +67,27 @@ Column buildOptionsTable(BuildContext context, String userType) {
             FontAwesomeIcons.calendarDay,
             'Daily Tests',
             Colors.orange,
-              () {},
+            () {},
           ),
           _buildIconAndLabelColumn(
             context,
             FontAwesomeIcons.users,
             'Activity',
             Colors.blue,
-              () {},
+            () {},
           ),
           _buildIconAndLabelColumn(
             context,
             FontAwesomeIcons.clockRotateLeft,
             'Circulars',
             Colors.green,
-              () {},
+            () {},
           ),
         ],
       ),
-      const SizedBox(height: 20.0,),
+      const SizedBox(
+        height: 20.0,
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -92,21 +96,37 @@ Column buildOptionsTable(BuildContext context, String userType) {
             FontAwesomeIcons.clipboardList,
             'Time Table',
             Colors.blue,
-              () {},
+            () {
+              switch (userType) {
+                case 'teacher':
+                  break;
+                case 'student':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const StudentTimetablePage(),
+                    ),
+                  );
+                  break;
+                case 'staff':
+                  break;
+                default:
+              }
+            },
           ),
           _buildIconAndLabelColumn(
             context,
             FontAwesomeIcons.message,
             'Messages',
             Colors.purple,
-              () {},
+            () {},
           ),
           _buildIconAndLabelColumn(
             context,
             FontAwesomeIcons.ellipsis,
             'More',
             Colors.blue,
-              () {},
+            () {},
           ),
         ],
       ),
@@ -115,12 +135,12 @@ Column buildOptionsTable(BuildContext context, String userType) {
 }
 
 Column _buildIconAndLabelColumn(
-    BuildContext context,
-    IconData icon,
-    String label,
-    Color color,
-    VoidCallback operation,
-    ) {
+  BuildContext context,
+  IconData icon,
+  String label,
+  Color color,
+  VoidCallback operation,
+) {
   return Column(
     children: [
       IconButton(
@@ -129,7 +149,9 @@ Column _buildIconAndLabelColumn(
         color: color,
         iconSize: 40.0,
       ),
-      const SizedBox(height: 5.0,),
+      const SizedBox(
+        height: 5.0,
+      ),
       Text(
         label,
         style: Theme.of(context).textTheme.bodyMedium,
