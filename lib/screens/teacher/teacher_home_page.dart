@@ -3,14 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import '../providers/user_provider.dart';
-import '../providers/user_type_provider.dart';
-import '../providers/picked_date_provider.dart';
-import '../widgets/display_info_appbar.dart';
-import '../widgets/home_page_options.dart';
-import '../widgets/search_bar.dart';
-import '../models/class.dart';
-import '../models/event.dart';
+import '../../providers/user_provider.dart';
+import '../../providers/user_type_provider.dart';
+import '../../providers/picked_date_provider.dart';
+import '../../widgets/display_info_appbar.dart';
+import '../../widgets/home_page_options.dart';
+import '../../widgets/search_bar.dart';
+import '../../models/class.dart';
+import '../../models/event.dart';
 
 class TeacherHomePage extends ConsumerStatefulWidget {
   const TeacherHomePage({super.key});
@@ -104,7 +104,7 @@ class _TeacherHomePageState extends ConsumerState<TeacherHomePage> with SingleTi
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.6 + sampleClasses.length * 65.0,
                       child: TabBarView(
                         controller: _tabController,
                         children: [

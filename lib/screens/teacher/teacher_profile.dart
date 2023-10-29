@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../providers/user_provider.dart';
-import '../screens/login_page.dart';
-import '../models/class.dart';
+import '../../providers/user_provider.dart';
+import '../login_page.dart';
+import '../../models/class.dart';
 
 class TeacherProfile extends ConsumerStatefulWidget {
   const TeacherProfile({super.key});
