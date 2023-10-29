@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../widgets/title_appbar.dart';
-import '../widgets/bottom_navigation_bar.dart';
+import '../../widgets/title_appbar.dart';
+import '../../widgets/bottom_navigation_bar.dart';
 
 List<Map<String, List<int>>> sampleAttendance = [
   {'September 2023':
@@ -75,7 +75,7 @@ class StudentAttendancePage extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width * 0.5,
+                                      width: MediaQuery.of(context).size.width * 0.49,
                                       child: SfCircularChart(
                                         annotations: [
                                           CircularChartAnnotation(
