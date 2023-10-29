@@ -1,16 +1,13 @@
-# school_management
+# School Management App
 
-A new Flutter project.
+School Management App is a web and mobile application built with Flutter and Django, designed to simplify the management of student and teacher records, attendance tracking, grades, and other essential administrative functions.
 
-## Getting Started
+## Features
+    • Student Management: Easily manage student profiles, including personal details, academic records, and attendance. 
+    • Attendance Tracking: Keep track of student attendance efficiently and generate attendance reports for individual students or entire classes.
+    • Timetable Management: Create and manage class timetables to ensure smooth scheduling of classes and avoid conflicts.
+    • Teacher Dashboard: Empower teachers with tools to manage their classes, record grades, and track student performance. 
+    • Admin Dashboard: Enable administrators and staff members to oversee and manage all aspects of the school, including user management, academic data, and system configuration.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    
+![Blank_8_Grids_Collage_1_](https://github.com/Mohadeseh50/school_management/assets/37903081/ced572a0-130c-4ff8-91e4-0f0c917a5754)
