@@ -17,8 +17,8 @@ The UI design that was implemented here was based on Pavithran N's work at: http
 
 
 ## Dependencies
-• Firebase for user authentication
-• Riverpod for state management
-• PostgreSQL as the database for Django
-• Django REST Framework
-• Font Awesome Icons
+    • Firebase for user authentication
+    • Riverpod for state management
+    • PostgreSQL as the database for Django
+    • Django REST Framework
+    • Font Awesome Icons
